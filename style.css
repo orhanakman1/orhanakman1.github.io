@@ -382,6 +382,63 @@ section { padding: 40px 0; }
   border-radius: 0 10px 10px 0;
 }
 
+/* ---------- Presentation ---------- */
+.diagram {
+  margin: 20px 0 8px;
+  padding: 18px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow-x: auto;
+  color: var(--ink);
+}
+
+.diagram svg {
+  display: block;
+  width: 100%;
+  min-width: 520px;
+  height: auto;
+}
+
+.d-run { fill: var(--sand); }
+.d-os { fill: var(--accent); }
+.d-on { fill: #1d1d1b; font-weight: 600; font-size: 12px; }
+.d-on-os { fill: var(--bg); font-weight: 600; font-size: 12px; }
+.d-note { fill: var(--muted); font-size: 11px; }
+.d-arrow { stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 3 3; }
+.d-axis { stroke: var(--line); stroke-width: 1.5; }
+
+.compare {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  margin: 12px 0;
+}
+
+.compare th,
+.compare td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.compare th {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: var(--muted);
+}
+
+.info-card {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.info-card span { color: var(--muted); font-size: 15px; }
+
+.sources li { font-size: 15px; margin-bottom: 8px; }
+
 /* ---------- Footer ---------- */
 .site-footer {
   border-top: 1px solid var(--line);

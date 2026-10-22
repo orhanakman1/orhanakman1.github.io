@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Context Switching | Orhan Akman</title>
+  <meta name="description" content="How One CPU Runs Many Programs: Context Switching. Presentation by Orhan Akman and Emre Kuzal for the Vocational English course.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../">Orhan Akman</a>
+      <nav class="nav">
+        <a href="../#about" class="hide-sm">About</a>
+        <a href="../#experience" class="hide-sm">Experience</a>
+        <a href="./" aria-current="page">Presentation</a>
+        <a href="../blog/">Blog</a>
+        <a href="../#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <article class="article">
+    <a class="back" href="../">← Home</a>
+    <p class="eyebrow" style="margin-top:20px">Vocational English · Presentation</p>
+    <h1>How One CPU Runs Many Programs: Context Switching</h1>
+    <p class="meta">
+      Presented by <strong>Orhan Akman</strong> &amp;
+      <a href="https://emrkzl44.github.io/" target="_blank" rel="noopener">Emre Kuzal</a>
+    </p>
+
+    <h2>About this talk</h2>
+    <p>
+      When you use your computer, you can listen to music, browse the web and write code at the
+      same time. But a CPU core can only run <strong>one instruction stream at a time</strong>. So how
+      does it look like everything is running together? The answer is <strong>context switching</strong>:
+      the operating system quickly stops one program, saves where it was, and starts another one.
+      This happens so fast (thousands of times per second) that we do not notice it.
+    </p>
+
+    <blockquote>
+      A context switch is the process of saving the state of the currently running process and
+      loading the saved state of another process, so the CPU can continue running it later from
+      exactly the same point.
+    </blockquote>
+
+    <h2>What is a "context"?</h2>
+    <p>
+      The context is everything the CPU needs to continue a program later. The operating system
+      stores it in a data structure called the <strong>Process Control Block (PCB)</strong>:
+    </p>
+    <ul>
+      <li><strong>Program Counter (PC):</strong> the address of the next instruction to run</li>
+      <li><strong>CPU registers:</strong> the values the program is working with right now</li>
+      <li><strong>Stack pointer:</strong> where the program's stack is in memory</li>
+      <li><strong>Process state:</strong> running, ready, waiting, etc.</li>
+      <li><strong>Memory management information:</strong> page tables, memory limits</li>
+      <li><strong>Open files and I/O status</strong></li>
+    </ul>
+
+    <h2>How does a context switch happen?</h2>
+    <div class="diagram" role="img" aria-label="Timeline: Process A runs, the OS saves A's state to PCB A and loads PCB B, then Process B runs; later the OS saves B and loads A again.">
+      <svg viewBox="0 0 660 190" xmlns="http://www.w3.org/2000/svg">
+        <g font-family="Montserrat, system-ui, sans-serif" font-size="13">
+          <text x="0" y="44" fill="currentColor" font-weight="700">Process A</text>
+          <text x="0" y="98" fill="currentColor" font-weight="700">OS (kernel)</text>
+          <text x="0" y="152" fill="currentColor" font-weight="700">Process B</text>
+
+          <rect x="100" y="28" width="140" height="24" rx="6" class="d-run"/>
+          <text x="170" y="45" text-anchor="middle" class="d-on">running</text>
+
+          <rect x="240" y="82" width="80" height="24" rx="6" class="d-os"/>
+          <text x="280" y="99" text-anchor="middle" class="d-on-os">switch</text>
+
+          <rect x="320" y="136" width="160" height="24" rx="6" class="d-run"/>
+          <text x="400" y="153" text-anchor="middle" class="d-on">running</text>
+
+          <rect x="480" y="82" width="80" height="24" rx="6" class="d-os"/>
+          <text x="520" y="99" text-anchor="middle" class="d-on-os">switch</text>
+
+          <rect x="560" y="28" width="100" height="24" rx="6" class="d-run"/>
+          <text x="610" y="45" text-anchor="middle" class="d-on">running</text>
+
+          <line x1="240" y1="58" x2="240" y2="80" class="d-arrow"/>
+          <line x1="320" y1="108" x2="320" y2="132" class="d-arrow"/>
+          <line x1="480" y1="132" x2="480" y2="110" class="d-arrow"/>
+          <line x1="560" y1="80" x2="560" y2="56" class="d-arrow"/>
+
+          <text x="240" y="128" text-anchor="middle" class="d-note">save A → PCB A</text>
+          <text x="330" y="72" class="d-note">load PCB B</text>
+          <text x="480" y="72" text-anchor="end" class="d-note">save B → PCB B</text>
+          <text x="560" y="128" class="d-note">load PCB A</text>
+
+          <line x1="100" y1="182" x2="660" y2="182" class="d-axis"/>
+          <text x="660" y="176" text-anchor="end" class="d-note">time →</text>
+        </g>
+      </svg>
+    </div>
+    <ol>
+      <li>Process A is running on the CPU.</li>
+      <li>An <strong>interrupt</strong> or <strong>system call</strong> happens, and control goes to the operating system.</li>
+      <li>The OS <strong>saves</strong> the state of Process A into its PCB.</li>
+      <li>The <strong>scheduler</strong> chooses the next process to run (Process B).</li>
+      <li>The OS <strong>loads</strong> the saved state of Process B from its PCB.</li>
+      <li>Process B continues from exactly where it stopped before.</li>
+    </ol>
+
+    <h2>When does it happen?</h2>
+    <ul>
+      <li><strong>Timer interrupt:</strong> the process used its time slice, so it is another process's turn (preemptive multitasking).</li>
+      <li><strong>Waiting for I/O:</strong> the process waits for the disk, network or keyboard, so the CPU runs something else meanwhile.</li>
+      <li><strong>A higher-priority process becomes ready.</strong></li>
+      <li><strong>The process finishes</strong> or voluntarily gives up the CPU.</li>
+    </ul>
+
+    <h2>The cost of a context switch</h2>
+    <p>
+      Context switching is necessary, but it is not free. During a switch, the CPU does no useful
+      work for the user's programs. This is called <strong>overhead</strong>. Besides saving and
+      loading registers, the new process often finds the CPU caches and the TLB filled with the
+      old process's data, so it runs slower for a short time. If the time slice is too short, the
+      system spends too much time switching. If it is too long, the system feels slow and
+      unresponsive. Operating system designers must find a balance.
+    </p>
+
+    <h2>Process switch vs. thread switch</h2>
+    <table class="compare">
+      <thead>
+        <tr><th></th><th>Process switch</th><th>Thread switch (same process)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Registers &amp; PC</td><td>Saved and loaded</td><td>Saved and loaded</td></tr>
+        <tr><td>Memory address space</td><td>Changes</td><td>Stays the same</td></tr>
+        <tr><td>Cost</td><td>Higher</td><td>Lower</td></tr>
+      </tbody>
+    </table>
+
+    <h2>A simple analogy</h2>
+    <p>
+      Imagine a chef cooking three dishes in one small kitchen. Before moving from the soup to the
+      pasta, the chef writes a note: <em>"Soup: added salt, boil 5 more minutes."</em> Later, the chef
+      reads the note and continues the soup from the same point. The note is the PCB, and moving
+      between dishes is a context switch. Writing and reading notes takes time, and that is the
+      overhead.
+    </p>
+
+    <h2>Slides</h2>
+    <div class="card info-card">
+      <strong>Slides will be uploaded here</strong>
+      <span>before the presentation day.</span>
+    </div>
+
+    <h2>Sources</h2>
+    <ul class="sources">
+      <li>A. Silberschatz, P. B. Galvin, G. Gagne, <em>Operating System Concepts</em>, 10th ed., Wiley. Chapter 3: Processes.</li>
+      <li>R. H. Arpaci-Dusseau, A. C. Arpaci-Dusseau, <em>Operating Systems: Three Easy Pieces</em>. Chapter 6: Limited Direct Execution. <a href="https://pages.cs.wisc.edu/~remzi/OSTEP/" target="_blank" rel="noopener">pages.cs.wisc.edu/~remzi/OSTEP</a></li>
+      <li>A. S. Tanenbaum, H. Bos, <em>Modern Operating Systems</em>, 4th ed., Pearson. Chapter 2: Processes and Threads.</li>
+    </ul>
+  </article>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>© 2026 Orhan Akman</span>
+      <a href="../blog/">Read my blog →</a>
+    </div>
+  </footer>
+
+</body>
+</html>
