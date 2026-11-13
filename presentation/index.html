@@ -32,7 +32,12 @@
     <p class="meta">
       Presented by <strong>Orhan Akman</strong> &amp;
       <a href="https://emrkzl44.github.io/" target="_blank" rel="noopener">Emre Kuzal</a>
+      · 12 November 2026 · about 10 minutes
     </p>
+    <div class="btns" style="margin-bottom:8px">
+      <a class="btn primary" href="../slides/context-switching/">▶ View slides</a>
+      <a class="btn" href="../assets/slides/context-switching.pdf" target="_blank" rel="noopener">PDF</a>
+    </div>
 
     <h2>About this talk</h2>
     <p>
@@ -149,18 +154,38 @@
       overhead.
     </p>
 
-    <h2>Slides</h2>
-    <div class="card info-card">
-      <strong>Slides will be uploaded here</strong>
-      <span>before the presentation day.</span>
+    <h2 id="slides">Slides</h2>
+    <div class="decks">
+      <a class="card deck" href="../slides/context-switching/">
+        <div class="deck-media">
+          <img src="../assets/slides/cs-animated.webp" width="960" height="540" alt="First slide of the animated presentation" loading="lazy">
+          <span class="deck-badge">▶ Animated</span>
+        </div>
+        <strong>Animated slides</strong>
+        <span>Opens in the browser · full screen button inside</span>
+      </a>
+      <a class="card deck" href="../assets/slides/context-switching.pdf" target="_blank" rel="noopener">
+        <div class="deck-media">
+          <img src="../assets/slides/cs-pdf.webp" width="960" height="540" alt="A slide from the PDF version" loading="lazy">
+          <span class="deck-badge">PDF</span>
+        </div>
+        <strong>PDF slides</strong>
+        <span>15 slides · 0.45 MB · opens in a new tab</span>
+      </a>
     </div>
 
     <h2>Sources</h2>
-    <ul class="sources">
-      <li>A. Silberschatz, P. B. Galvin, G. Gagne, <em>Operating System Concepts</em>, 10th ed., Wiley. Chapter 3: Processes.</li>
-      <li>R. H. Arpaci-Dusseau, A. C. Arpaci-Dusseau, <em>Operating Systems: Three Easy Pieces</em>. Chapter 6: Limited Direct Execution. <a href="https://pages.cs.wisc.edu/~remzi/OSTEP/" target="_blank" rel="noopener">pages.cs.wisc.edu/~remzi/OSTEP</a></li>
-      <li>A. S. Tanenbaum, H. Bos, <em>Modern Operating Systems</em>, 4th ed., Pearson. Chapter 2: Processes and Threads.</li>
-    </ul>
+    <ol class="sources">
+      <li><span class="src-tag">Paper</span><a href="https://www.cs.fsu.edu/~awang/courses/cop5611_s2017/slow_os.pdf" target="_blank" rel="noopener">Ousterhout, J. (1990). Why Aren't Operating Systems Getting Faster As Fast as Hardware? USENIX Summer Conference.</a></li>
+      <li><span class="src-tag">Paper</span><a href="https://www.cs.rochester.edu/~kshen/papers/expcs2007.pdf" target="_blank" rel="noopener">Li, C., Ding, C. &amp; Shen, K. (2007). Quantifying the Cost of Context Switch. ACM Workshop on Experimental Computer Science (ExpCS).</a></li>
+      <li><span class="src-tag">Book</span><a href="https://pages.cs.wisc.edu/~remzi/OSTEP/cpu-mechanisms.pdf" target="_blank" rel="noopener">Arpaci-Dusseau, R. &amp; Arpaci-Dusseau, A. Operating Systems: Three Easy Pieces, Chapter 6: Limited Direct Execution.</a></li>
+      <li><span class="src-tag">Book</span>Silberschatz, A., Galvin, P. B. &amp; Gagne, G. Operating System Concepts, 10th ed., Wiley. Chapter 3: Processes.</li>
+      <li><span class="src-tag">Tech doc</span><a href="https://learn.microsoft.com/en-us/windows/win32/procthread/context-switches" target="_blank" rel="noopener">Microsoft Learn. Context Switches.</a></li>
+      <li><span class="src-tag">Tech doc</span><a href="https://docs.kernel.org/scheduler/sched-design-CFS.html" target="_blank" rel="noopener">Linux Kernel Documentation. CFS Scheduler</a> &amp; <a href="https://docs.kernel.org/scheduler/sched-eevdf.html" target="_blank" rel="noopener">EEVDF Scheduler.</a></li>
+      <li><span class="src-tag">Tech doc</span><a href="https://man7.org/linux/man-pages/man8/vmstat.8.html" target="_blank" rel="noopener">Linux man-pages. vmstat(8)</a> &amp; <a href="https://man7.org/linux/man-pages/man5/proc_pid_status.5.html" target="_blank" rel="noopener">proc_pid_status(5).</a></li>
+      <li><span class="src-tag">Tech doc</span><a href="https://learn.microsoft.com/en-us/windows/win32/cimwin32prov/win32-perfformatteddata" target="_blank" rel="noopener">Microsoft Learn. Win32_PerfFormattedData classes.</a></li>
+      <li><span class="src-tag">Blog</span><a href="https://eli.thegreenplace.net/2018/measuring-context-switching-and-memory-overheads-for-linux-threads/" target="_blank" rel="noopener">Bendersky, E. (2018). Measuring context switching and memory overheads for Linux threads.</a></li>
+    </ol>
   </article>
 
   <footer class="site-footer">

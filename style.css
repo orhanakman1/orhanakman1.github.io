@@ -439,6 +439,71 @@ section { padding: 40px 0; }
 
 .sources li { font-size: 15px; margin-bottom: 8px; }
 
+.src-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  padding: 1px 7px;
+  margin-right: 8px;
+  border-radius: 999px;
+  background: var(--sand-soft);
+  vertical-align: 1px;
+}
+
+.decks {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.deck {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 12px 16px;
+  text-decoration: none;
+  transition: transform .15s ease, border-color .15s ease;
+}
+
+.deck:hover {
+  transform: translateY(-3px);
+  border-color: var(--sand);
+}
+
+.deck-media {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.deck-media img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.deck-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  background: rgba(0, 0, 0, .65);
+  color: #fff;
+}
+
+.deck span:last-child { color: var(--muted); font-size: 14px; }
+
+@media (max-width: 600px) {
+  .decks { grid-template-columns: 1fr; }
+}
+
 /* ---------- Footer ---------- */
 .site-footer {
   border-top: 1px solid var(--line);
